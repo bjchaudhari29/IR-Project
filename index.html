@@ -1,0 +1,27 @@
+<body style='font-family: Consolas; background:#6a5acd;'>
+<script>
+    function post_question(){
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("POST", "/json-handler");
+        xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("demo").innerHTML = xhttp.responseText;
+                console.log(xhttp.responseText);
+            }
+        };
+        question = document.getElementById("question").value
+        prod_id = document.getElementById("prod_id").value
+        xhttp.send(JSON.stringify({ question: question, prod_id: prod_id }));
+    }
+</script>
+<form method="POST">
+  <h2>Question: </h2>
+  <input type="text" size="150" id="question" name="question" value="can i use this in my car?">
+  <h2>ProductId: </h2>
+  <textarea name="prod_id" size="150" id="prod_id" >4</textarea>
+  <br><br>
+  <input onclick="post_question()" type="button" value="Submit">
+</form>
+<div id='demo'></div>
+</body>
